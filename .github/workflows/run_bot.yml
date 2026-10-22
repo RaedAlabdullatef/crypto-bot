@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: write  # <--- Das behebt den Exit Code 128 / Berechtigungsfehler
+  contents: write
 
 jobs:
   run-bot:
@@ -28,10 +28,8 @@ jobs:
         run: |
           python bot.py
 
-      - name: Commit and push changes (Save logs)
-        run: |
-          git config --global user.name "GitHub Actions Bot"
-          git config --global user.email "actions@github.com"
-          git add bot_trading_log.csv
-          git commit -m "Auto-update bot trading log" || exit 0
-          git push
+      - name: Commit and push logs automatically
+        uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: "Auto-update bot trading log"
+          file_pattern: bot_trading_log.csv
