@@ -33,7 +33,7 @@ df['equity'] = initial_cash * (1 + df['strategy_return']).cumprod()
 # 5. استخراج القيم الحالية
 current_equity = df['equity'].iloc[-1]
 current_price = df['close'].iloc[-1]
-current_date = df.index[-1]
+current_date = str(df['timestamp'].iloc[-1].date())
 current_position_code = df['position'].iloc[-1]
 current_position_text = "مستثمر في البيتكوين (Long)" if current_position_code == 1 else "كاش (Cash)"
 
@@ -57,9 +57,9 @@ if not os.path.exists(log_file):
     print("📁 تم إنشاء سجل جديد وحفظ البيانات فيه.")
 else:
     existing_logs = pd.read_csv(log_file)
-    if str(existing_logs['Date'].iloc[-1]) != str(current_date):
-        updated_logs = pd.concat([existing_logs, new_log], ignore_index=True)
-        updated_logs.to_csv(log_file, index=False)
-        print("📁 تم تحديث سجل التداولات بنجاح.")
-    else:
-        print("📁 السجل محدث مسبقاً لهذا اليوم.")
+    # إضافة السطر الجديد مباشرة
+    updated_logs = pd.concat([existing_logs, new_log], ignore_index=True)
+    # إزالة التكرار إن وجد لنفس اليوم
+    updated_logs = updated_logs.drop_duplicates(subset=['Date'], keep='last')
+    updated_logs.to_csv(log_file, index=False)
+    print("📁 تم تحديث سجل التداولات بنجاح.")
