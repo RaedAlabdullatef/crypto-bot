@@ -2,8 +2,11 @@ name: Run Crypto Trading Bot
 
 on:
   schedule:
-    - cron: '0 0 * * *'  # يعمل تلقائياً كل يوم في منتصف الليل (بتوقيت UTC)
-  workflow_dispatch:     # يتيح لك زر تشغيل يدوي من المتصفح متى شئت
+    - cron: '0 0 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write  # <--- Das behebt den Exit Code 128 / Berechtigungsfehler
 
 jobs:
   run-bot:
