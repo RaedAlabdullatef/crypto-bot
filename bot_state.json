@@ -1,10 +1,10 @@
 {
-  "cash": 0.0,
-  "symbol": "NEAR/USD",
-  "qty": 205.82772710388377,
-  "entry_price": 4.8458,
-  "cost": 1000.0,
-  "entry_date": "2026-10-22",
-  "trades": 1,
+  "cash": 1008.7871843584134,
+  "symbol": null,
+  "qty": 0.0,
+  "entry_price": 0.0,
+  "cost": 0.0,
+  "entry_date": null,
+  "trades": 2,
   "benchmark_start": 81215.4
 }
